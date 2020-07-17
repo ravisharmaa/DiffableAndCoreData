@@ -102,22 +102,42 @@ class CompaniesController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
+        guard let item = self.dataSource.itemIdentifier(for: indexPath) else { fatalError()}
+        
+        var snapshot = self.dataSource.snapshot()
+        
+        
         let deleteHandler: UIContextualAction.Handler = { [weak self] _, _, completion in
-            let item = self?.dataSource.itemIdentifier(for: indexPath)
             
-            var snapshot = self?.dataSource.snapshot()
+            snapshot.deleteItems([item])
             
-            snapshot?.deleteItems([item!])
+            self?.dataSource.apply(snapshot, animatingDifferences: true)
             
-            self?.dataSource.apply(snapshot!, animatingDifferences: true)
-            
-            CoreDataManager.shared.deleteObject(object: item!)
+            CoreDataManager.shared.deleteObject(object: item)
             
             completion(true)
         }
         
         
-        let editHandler: UIContextualAction.Handler = { _, _, completion in
+        let editHandler: UIContextualAction.Handler = { [weak self] _, _, completion in
+            
+            let editingController = CreateCompanyController()
+            
+            editingController.companyEntity = item
+            
+            
+            editingController.didEndEditing = { [weak self] editedCompany in
+                
+                snapshot.reloadItems([editedCompany!])
+                
+                self?.dataSource.apply(snapshot)
+            }
+            
+            
+            let nav = UINavigationController(rootViewController: editingController)
+            
+            self?.present(nav, animated: true, completion: nil)
+            
             completion(true)
         }
         
@@ -148,7 +168,7 @@ extension CompaniesController {
         
         let controller = CreateCompanyController()
         
-        controller.didTapCancelButton = { [weak self] companyEntity in
+        controller.didTapCreateButton = { [weak self] companyEntity in
             
             var snapshot = self?.dataSource.snapshot()
             

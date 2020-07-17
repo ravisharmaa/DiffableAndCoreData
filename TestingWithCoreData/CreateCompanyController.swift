@@ -34,7 +34,15 @@ class CreateCompanyController: UIViewController {
         return view
     }()
     
-    var didTapCancelButton: ((_ entity: CompanyEntity?)-> ())?
+    var didTapCreateButton: ((_ entity: CompanyEntity?)-> ())?
+    
+    var didEndEditing: ((_ entity: CompanyEntity?) -> ())?
+    
+    var companyEntity: CompanyEntity? {
+        didSet {
+            self.companyTextField.text = self.companyEntity?.name
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,6 +83,11 @@ class CreateCompanyController: UIViewController {
         ])
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationItem.title = companyEntity == nil ? "Create Company" : "Edit Company"
+    }
+    
     
 }
 
@@ -83,9 +96,14 @@ extension CreateCompanyController {
     
     @objc func handleCreate() {
         
-//        let context = CoreDataManager.shared.persistentContainer.viewContext
-        
-//        let company = NSEntityDescription.insertNewObject(forEntityName: "CompanyEntity", into: context) as? CompanyEntity
+        if companyEntity == nil {
+            handleSave()
+        } else {
+            handleEdit()
+        }
+    }
+    
+    func handleSave() {
         
         let company = CoreDataManager.shared.getObjectForContext(entityObject: CompanyEntity.self, entityName: "CompanyEntity")
         
@@ -97,7 +115,7 @@ extension CreateCompanyController {
             try CoreDataManager.shared.persistentContainer.viewContext.save()
             
             dismiss(animated: true) {
-                self.didTapCancelButton?(company)
+                self.didTapCreateButton?(company)
             }
             
         } catch let error {
@@ -105,6 +123,21 @@ extension CreateCompanyController {
         }
         
         
+    }
+    
+    func handleEdit() {
+        let context = CoreDataManager.shared.persistentContainer.viewContext
+        companyEntity?.name = companyTextField.text
+        
+        do {
+            try context.save()
+            dismiss(animated: true, completion: {
+                self.didEndEditing?(self.companyEntity)
+            })
+            
+        } catch let error {
+            print(error.localizedDescription)
+        }
     }
     
     @objc func handleCancel() {
