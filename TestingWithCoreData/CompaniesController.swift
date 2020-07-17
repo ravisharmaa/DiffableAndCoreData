@@ -64,7 +64,23 @@ class CompaniesController: UITableViewController {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: CompanyCell.reuseIdentifier, for: indexPath) as? CompanyCell else {
                 assert(false)
             }
-            cell.textLabel?.text = company.name
+            
+            
+            
+            if let name = company.name, let founded = company.foundedDate {
+                
+                let formatter = DateFormatter()
+                
+                formatter.dateFormat = "MMM dd, yyyy"
+                
+                let foundedString = formatter.string(from: founded)
+                
+                cell.textLabel?.text = name + " - " + foundedString
+                
+            } else {
+                cell.textLabel?.text = company.name
+            }
+            
             
             return cell
         })

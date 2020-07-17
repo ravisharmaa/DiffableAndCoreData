@@ -34,6 +34,22 @@ class CreateCompanyController: UIViewController {
         return view
     }()
     
+    fileprivate lazy var dateLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Found Date"
+        label.adjustsFontSizeToFitWidth = true
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    
+    fileprivate lazy var datePicker: UIDatePicker = {
+        let datePicker = UIDatePicker()
+        datePicker.translatesAutoresizingMaskIntoConstraints = false
+        return datePicker
+        
+    }()
+    
     var didTapCreateButton: ((_ entity: CompanyEntity?)-> ())?
     
     var didEndEditing: ((_ entity: CompanyEntity?) -> ())?
@@ -41,6 +57,7 @@ class CreateCompanyController: UIViewController {
     var companyEntity: CompanyEntity? {
         didSet {
             self.companyTextField.text = self.companyEntity?.name
+            self.datePicker.date = self.companyEntity?.foundedDate ?? Date()
         }
     }
     
@@ -63,12 +80,19 @@ class CreateCompanyController: UIViewController {
             backGroundView.topAnchor.constraint(equalTo: view.topAnchor),
             backGroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             backGroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            backGroundView.heightAnchor.constraint(equalToConstant: 50)
+            backGroundView.heightAnchor.constraint(equalToConstant: 350)
         ])
         
         backGroundView.addSubview(companyNameLabel)
         
         backGroundView.addSubview(companyTextField)
+        
+        backGroundView.addSubview(dateLabel)
+        
+        backGroundView.addSubview(datePicker)
+        
+        datePicker.datePickerMode = .date
+        datePicker.tintColor = .darkGray
         
         NSLayoutConstraint.activate([
             companyNameLabel.topAnchor.constraint(equalTo: view.topAnchor),
@@ -79,8 +103,20 @@ class CreateCompanyController: UIViewController {
             companyTextField.topAnchor.constraint(equalTo: companyNameLabel.topAnchor),
             companyTextField.leadingAnchor.constraint(equalTo: companyNameLabel.trailingAnchor),
             companyTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            companyTextField.bottomAnchor.constraint(equalTo: companyNameLabel.bottomAnchor)
+            companyTextField.bottomAnchor.constraint(equalTo: companyNameLabel.bottomAnchor),
+            
+            
+            dateLabel.topAnchor.constraint(equalTo: companyNameLabel.bottomAnchor, constant: 5),
+            dateLabel.leadingAnchor.constraint(equalTo: companyNameLabel.leadingAnchor),
+            dateLabel.heightAnchor.constraint(equalTo: companyNameLabel.heightAnchor),
+            dateLabel.widthAnchor.constraint(equalTo: companyNameLabel.widthAnchor),
+            
+            datePicker.topAnchor.constraint(equalTo: companyNameLabel.bottomAnchor, constant: 5),
+            datePicker.leadingAnchor.constraint(equalTo: dateLabel.trailingAnchor),
+            datePicker.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            datePicker.bottomAnchor.constraint(equalTo: dateLabel.bottomAnchor)
         ])
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -110,6 +146,7 @@ extension CreateCompanyController {
         guard let text = companyTextField.text else { fatalError() }
         
         company?.setValue(text, forKey: "name")
+        company?.setValue(datePicker.date, forKey: "foundedDate")
         
         do {
             try CoreDataManager.shared.persistentContainer.viewContext.save()
@@ -128,6 +165,7 @@ extension CreateCompanyController {
     func handleEdit() {
         let context = CoreDataManager.shared.persistentContainer.viewContext
         companyEntity?.name = companyTextField.text
+        companyEntity?.foundedDate = datePicker.date
         
         do {
             try context.save()
