@@ -50,6 +50,19 @@ class CreateCompanyController: UIViewController {
         
     }()
     
+    fileprivate lazy var imageView: UIImageView = {
+        let imageView = UIImageView(image: UIImage(named: "imagePlaceholder"))
+        imageView.contentMode = .scaleAspectFill
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        imageView.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        imageView.isUserInteractionEnabled = true
+        imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleImageTapped)))
+        imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = imageView.frame.height / 2
+        return imageView
+    }()
+    
     var didTapCreateButton: ((_ entity: CompanyEntity?)-> ())?
     
     var didEndEditing: ((_ entity: CompanyEntity?) -> ())?
@@ -58,6 +71,9 @@ class CreateCompanyController: UIViewController {
         didSet {
             self.companyTextField.text = self.companyEntity?.name
             self.datePicker.date = self.companyEntity?.foundedDate ?? Date()
+            if let image = self.companyEntity?.image {
+                self.imageView.image = UIImage(data: image)
+            }
         }
     }
     
@@ -91,11 +107,17 @@ class CreateCompanyController: UIViewController {
         
         backGroundView.addSubview(datePicker)
         
+        backGroundView.addSubview(imageView)
+        
         datePicker.datePickerMode = .date
         datePicker.tintColor = .darkGray
         
         NSLayoutConstraint.activate([
-            companyNameLabel.topAnchor.constraint(equalTo: view.topAnchor),
+            
+            imageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
+            imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0),
+            
+            companyNameLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor),
             companyNameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             companyNameLabel.heightAnchor.constraint(equalToConstant: 50),
             companyNameLabel.widthAnchor.constraint(equalToConstant: 100),
@@ -148,6 +170,11 @@ extension CreateCompanyController {
         company?.setValue(text, forKey: "name")
         company?.setValue(datePicker.date, forKey: "foundedDate")
         
+        if let image = imageView.image {
+            let image = image.jpegData(compressionQuality: 0.8)
+            company?.image = image
+        }
+        
         do {
             try CoreDataManager.shared.persistentContainer.viewContext.save()
             
@@ -167,8 +194,15 @@ extension CreateCompanyController {
         companyEntity?.name = companyTextField.text
         companyEntity?.foundedDate = datePicker.date
         
+        if let image = imageView.image {
+            let image = image.jpegData(compressionQuality: 0.8)
+            companyEntity?.image = image
+        }
+        
+        
         do {
             try context.save()
+            
             dismiss(animated: true, completion: {
                 self.didEndEditing?(self.companyEntity)
             })
@@ -179,6 +213,33 @@ extension CreateCompanyController {
     }
     
     @objc func handleCancel() {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func handleImageTapped() {
+        let picker = UIImagePickerController()
+        picker.allowsEditing = true
+        
+        picker.delegate = self
+        
+        present(picker, animated: true, completion: nil)
+        
+    }
+}
+
+extension CreateCompanyController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        if let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+            self.imageView.image = image
+        } else if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            self.imageView.image = originalImage
+        }
+        
+        imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = imageView.frame.height / 2
+        
         dismiss(animated: true, completion: nil)
     }
 }

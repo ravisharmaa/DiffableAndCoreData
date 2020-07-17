@@ -12,7 +12,7 @@ struct Company: Codable, Hashable {
     
     let name: String?
     
-    let identifier = UUID()
+    var identifier = UUID()
     
     let founded: Date?
 }

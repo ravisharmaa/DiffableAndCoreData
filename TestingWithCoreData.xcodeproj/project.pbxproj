@@ -49,6 +49,72 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5135C0FF24C1BD4300E74504 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				5135C10024C1BD4A00E74504 /* Company */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		5135C10024C1BD4A00E74504 /* Company */ = {
+			isa = PBXGroup;
+			children = (
+				51D3929424C05BA900F81D85 /* CompaniesController.swift */,
+				51D3928924C05B7300F81D85 /* CreateCompanyController.swift */,
+			);
+			path = Company;
+			sourceTree = "<group>";
+		};
+		5135C10124C1BD5B00E74504 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				51D3928C24C05B7300F81D85 /* Company.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		5135C10224C1BD6800E74504 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				51D3928A24C05B7300F81D85 /* UIColor+Extension.swift */,
+				51D3928B24C05B7300F81D85 /* UIViewController+Extension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		5135C10324C1BD7900E74504 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				5135C10424C1BD7F00E74504 /* TableViewCells */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		5135C10424C1BD7F00E74504 /* TableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				51D3928824C05B7300F81D85 /* CompanyCell.swift */,
+			);
+			path = TableViewCells;
+			sourceTree = "<group>";
+		};
+		5135C10524C1BD9300E74504 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				51C31EF124C0687E0021575A /* CoreDataManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		5135C10624C1BDB200E74504 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				51D3929624C05CF300F81D85 /* CoreDataModel.xcdatamodeld */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
 		51D3926424C05B3D00F81D85 = {
 			isa = PBXGroup;
 			children = (
@@ -68,19 +134,17 @@
 		51D3926F24C05B3D00F81D85 /* TestingWithCoreData */ = {
 			isa = PBXGroup;
 			children = (
+				5135C10624C1BDB200E74504 /* Database */,
+				5135C10224C1BD6800E74504 /* Extensions */,
+				5135C10524C1BD9300E74504 /* Managers */,
+				5135C10124C1BD5B00E74504 /* Models */,
+				5135C10324C1BD7900E74504 /* Views */,
+				5135C0FF24C1BD4300E74504 /* ViewControllers */,
 				51D3928424C05B5600F81D85 /* AppDelegate.swift */,
-				51D3928C24C05B7300F81D85 /* Company.swift */,
-				51D3928824C05B7300F81D85 /* CompanyCell.swift */,
-				51D3929424C05BA900F81D85 /* CompaniesController.swift */,
-				51D3928924C05B7300F81D85 /* CreateCompanyController.swift */,
 				51D3929224C05B8F00F81D85 /* Assets.xcassets */,
-				51D3928A24C05B7300F81D85 /* UIColor+Extension.swift */,
-				51D3928B24C05B7300F81D85 /* UIViewController+Extension.swift */,
 				51D3928624C05B6500F81D85 /* SceneDelegate.swift */,
 				51D3927B24C05B3F00F81D85 /* LaunchScreen.storyboard */,
 				51D3927E24C05B3F00F81D85 /* Info.plist */,
-				51D3929624C05CF300F81D85 /* CoreDataModel.xcdatamodeld */,
-				51C31EF124C0687E0021575A /* CoreDataManager.swift */,
 			);
 			path = TestingWithCoreData;
 			sourceTree = "<group>";

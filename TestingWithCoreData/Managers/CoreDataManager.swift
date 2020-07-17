@@ -54,6 +54,10 @@ struct CoreDataManager {
     }
     
     
+    // MARK:- Deletes and object from storage
+    
+    /// added  ```discardable``` to ignore the return value,  check if the deletion is successful or not.
+    
     @discardableResult
     
     func deleteObject <T: NSManagedObject>(object: T) -> Bool {
@@ -65,6 +69,25 @@ struct CoreDataManager {
             return true
         } catch let error {
             print(error)
+        }
+        
+        return false
+        
+    }
+    
+    // MARK:- Deletes all records
+    
+    @discardableResult
+    
+    func batchDelete <T: NSManagedObject>(object: T.Type) -> Bool {
+        
+        let batchRequest = NSBatchDeleteRequest(fetchRequest: T.fetchRequest())
+        
+        do {
+            try persistentContainer.viewContext.execute(batchRequest)
+            return true
+        } catch let error {
+            print(error.localizedDescription)
         }
         
         return false

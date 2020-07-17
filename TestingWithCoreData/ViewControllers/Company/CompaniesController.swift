@@ -15,6 +15,12 @@ class CustomNavigationController: UINavigationController {
     }
 }
 
+extension UINavigationController {
+    open override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+}
+
 class CompaniesController: UITableViewController {
     
     
@@ -35,11 +41,12 @@ class CompaniesController: UITableViewController {
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Plus")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(handleBarItemClicked))
         
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Delete All", style: .plain, target: self, action: #selector(handleClearAll))
+        
         tableView.backgroundColor = .darkBlue
         
         tableView.register(CompanyCell.self, forCellReuseIdentifier: CompanyCell.reuseIdentifier)
         tableView.isUserInteractionEnabled = true
-        
         
         fetchDataFromStorage()
         
@@ -66,21 +73,7 @@ class CompaniesController: UITableViewController {
             }
             
             
-            
-            if let name = company.name, let founded = company.foundedDate {
-                
-                let formatter = DateFormatter()
-                
-                formatter.dateFormat = "MMM dd, yyyy"
-                
-                let foundedString = formatter.string(from: founded)
-                
-                cell.textLabel?.text = name + " - " + foundedString
-                
-            } else {
-                cell.textLabel?.text = company.name
-            }
-            
+            cell.company = company
             
             return cell
         })
@@ -175,12 +168,32 @@ class CompaniesController: UITableViewController {
             return true
         }
     }
+    
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let label = UILabel()
+        
+        label.text = "No companies available"
+        
+        label.textAlignment = .center
+        
+        label.textColor = .systemGray
+        return label
+        
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return companies.count == 0 ? 150 : 0
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
+    }
 }
 
 
 extension CompaniesController {
     
-    @objc func handleBarItemClicked() {
+    @objc fileprivate func handleBarItemClicked() {
         
         let controller = CreateCompanyController()
         
@@ -196,6 +209,24 @@ extension CompaniesController {
         let createController = UINavigationController(rootViewController: controller)
         createController.modalPresentationStyle = .overFullScreen
         present(createController, animated: true, completion: nil)
+    }
+    
+    @objc fileprivate func handleClearAll() {
+        
+        var snapshot = dataSource.snapshot()
+                
+        if self.companies.isEmpty {
+           
+            guard let company = CoreDataManager.shared.fetch(entityObject: CompanyEntity.self, entityName: "CompanyEntity") else { return }
+            snapshot.deleteItems(company)
+        
+        } else {
+            snapshot.deleteItems(self.companies)
+        }
+        
+        CoreDataManager.shared.batchDelete(object: CompanyEntity.self)
+        
+        dataSource.apply(snapshot, animatingDifferences: true)
     }
 }
 
