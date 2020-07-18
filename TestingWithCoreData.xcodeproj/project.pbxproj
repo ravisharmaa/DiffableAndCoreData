@@ -10,6 +10,14 @@
 		5135C10824C1BF4600E74504 /* CompaniesController+UITableViewExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5135C10724C1BF4600E74504 /* CompaniesController+UITableViewExt.swift */; };
 		5135C10A24C1C2B100E74504 /* EmployeesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5135C10924C1C2B000E74504 /* EmployeesController.swift */; };
 		5135C10D24C1C89100E74504 /* CreateEmployeeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5135C10C24C1C89100E74504 /* CreateEmployeeController.swift */; };
+		5145EE1B24C37BF5007DEA31 /* Employee+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5145EE1324C37BF5007DEA31 /* Employee+CoreDataClass.swift */; };
+		5145EE1C24C37BF5007DEA31 /* Employee+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5145EE1424C37BF5007DEA31 /* Employee+CoreDataProperties.swift */; };
+		5145EE1D24C37BF5007DEA31 /* CompanyEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5145EE1524C37BF5007DEA31 /* CompanyEntity+CoreDataClass.swift */; };
+		5145EE1E24C37BF5007DEA31 /* CompanyEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5145EE1624C37BF5007DEA31 /* CompanyEntity+CoreDataProperties.swift */; };
+		5145EE1F24C37BF5007DEA31 /* EmployeeAddress+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5145EE1724C37BF5007DEA31 /* EmployeeAddress+CoreDataClass.swift */; };
+		5145EE2024C37BF5007DEA31 /* EmployeeAddress+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5145EE1824C37BF5007DEA31 /* EmployeeAddress+CoreDataProperties.swift */; };
+		5145EE2124C37BF5007DEA31 /* EmployeeInformation+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5145EE1924C37BF5007DEA31 /* EmployeeInformation+CoreDataClass.swift */; };
+		5145EE2224C37BF5007DEA31 /* EmployeeInformation+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5145EE1A24C37BF5007DEA31 /* EmployeeInformation+CoreDataProperties.swift */; };
 		51C31EF224C0687E0021575A /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C31EF124C0687E0021575A /* CoreDataManager.swift */; };
 		51D3927D24C05B3F00F81D85 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51D3927B24C05B3F00F81D85 /* LaunchScreen.storyboard */; };
 		51D3928524C05B5600F81D85 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D3928424C05B5600F81D85 /* AppDelegate.swift */; };
@@ -29,6 +37,14 @@
 		5135C10724C1BF4600E74504 /* CompaniesController+UITableViewExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CompaniesController+UITableViewExt.swift"; sourceTree = "<group>"; };
 		5135C10924C1C2B000E74504 /* EmployeesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeesController.swift; sourceTree = "<group>"; };
 		5135C10C24C1C89100E74504 /* CreateEmployeeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEmployeeController.swift; sourceTree = "<group>"; };
+		5145EE1324C37BF5007DEA31 /* Employee+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Employee+CoreDataClass.swift"; sourceTree = "<group>"; };
+		5145EE1424C37BF5007DEA31 /* Employee+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Employee+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		5145EE1524C37BF5007DEA31 /* CompanyEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CompanyEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		5145EE1624C37BF5007DEA31 /* CompanyEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CompanyEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		5145EE1724C37BF5007DEA31 /* EmployeeAddress+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EmployeeAddress+CoreDataClass.swift"; sourceTree = "<group>"; };
+		5145EE1824C37BF5007DEA31 /* EmployeeAddress+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EmployeeAddress+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		5145EE1924C37BF5007DEA31 /* EmployeeInformation+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EmployeeInformation+CoreDataClass.swift"; sourceTree = "<group>"; };
+		5145EE1A24C37BF5007DEA31 /* EmployeeInformation+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EmployeeInformation+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		51C31EF124C0687E0021575A /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		51D3926D24C05B3D00F81D85 /* TestingWithCoreData.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestingWithCoreData.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		51D3927C24C05B3F00F81D85 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -57,6 +73,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		511068EE24C379D200FD6B6C /* DataModels */ = {
+			isa = PBXGroup;
+			children = (
+				5145EE1324C37BF5007DEA31 /* Employee+CoreDataClass.swift */,
+				5145EE1424C37BF5007DEA31 /* Employee+CoreDataProperties.swift */,
+				5145EE1524C37BF5007DEA31 /* CompanyEntity+CoreDataClass.swift */,
+				5145EE1624C37BF5007DEA31 /* CompanyEntity+CoreDataProperties.swift */,
+				5145EE1724C37BF5007DEA31 /* EmployeeAddress+CoreDataClass.swift */,
+				5145EE1824C37BF5007DEA31 /* EmployeeAddress+CoreDataProperties.swift */,
+				5145EE1924C37BF5007DEA31 /* EmployeeInformation+CoreDataClass.swift */,
+				5145EE1A24C37BF5007DEA31 /* EmployeeInformation+CoreDataProperties.swift */,
+			);
+			path = DataModels;
+			sourceTree = "<group>";
+		};
 		5135C0FF24C1BD4300E74504 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -121,6 +152,7 @@
 		5135C10624C1BDB200E74504 /* Database */ = {
 			isa = PBXGroup;
 			children = (
+				511068EE24C379D200FD6B6C /* DataModels */,
 				51D3929624C05CF300F81D85 /* CoreDataModel.xcdatamodeld */,
 			);
 			path = Database;
@@ -247,19 +279,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5145EE2224C37BF5007DEA31 /* EmployeeInformation+CoreDataProperties.swift in Sources */,
 				51D3928524C05B5600F81D85 /* AppDelegate.swift in Sources */,
 				51D3928E24C05B7300F81D85 /* CreateCompanyController.swift in Sources */,
 				51D3928F24C05B7300F81D85 /* UIColor+Extension.swift in Sources */,
 				51D3929024C05B7300F81D85 /* UIViewController+Extension.swift in Sources */,
 				51D3928724C05B6500F81D85 /* SceneDelegate.swift in Sources */,
+				5145EE2124C37BF5007DEA31 /* EmployeeInformation+CoreDataClass.swift in Sources */,
+				5145EE1C24C37BF5007DEA31 /* Employee+CoreDataProperties.swift in Sources */,
 				51D3929824C05CF300F81D85 /* CoreDataModel.xcdatamodeld in Sources */,
 				51D3928D24C05B7300F81D85 /* CompanyCell.swift in Sources */,
 				5135C10D24C1C89100E74504 /* CreateEmployeeController.swift in Sources */,
 				5135C10A24C1C2B100E74504 /* EmployeesController.swift in Sources */,
 				51D3929124C05B7300F81D85 /* Company.swift in Sources */,
 				51C31EF224C0687E0021575A /* CoreDataManager.swift in Sources */,
+				5145EE2024C37BF5007DEA31 /* EmployeeAddress+CoreDataProperties.swift in Sources */,
+				5145EE1E24C37BF5007DEA31 /* CompanyEntity+CoreDataProperties.swift in Sources */,
 				5135C10824C1BF4600E74504 /* CompaniesController+UITableViewExt.swift in Sources */,
 				51F8780824C3613E0000121B /* FetchedResultsController.swift in Sources */,
+				5145EE1D24C37BF5007DEA31 /* CompanyEntity+CoreDataClass.swift in Sources */,
+				5145EE1F24C37BF5007DEA31 /* EmployeeAddress+CoreDataClass.swift in Sources */,
+				5145EE1B24C37BF5007DEA31 /* Employee+CoreDataClass.swift in Sources */,
 				51D3929524C05BA900F81D85 /* CompaniesController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
