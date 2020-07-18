@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class CustomNavigationController: UINavigationController {
     
@@ -43,8 +44,10 @@ class CompaniesController: UITableViewController {
         
         navigationItem.leftBarButtonItems = [
             
-            UIBarButtonItem(title: "Delete All", style: .plain, target: self, action: #selector(handleClearAll)),
-            UIBarButtonItem(title: "Insert In Background Thread", style: .plain, target: self, action: #selector(insertInBackGroundThread))
+            UIBarButtonItem(title: "Delete", style: .plain, target: self, action: #selector(handleClearAll)),
+            UIBarButtonItem(title: "Insert", style: .plain, target: self, action: #selector(insertInBackGroundThread)),
+            UIBarButtonItem(title: "Update", style: .plain, target: self, action: #selector(updateInBackground)),
+            UIBarButtonItem(title: "Nested", style: .plain, target: self, action: #selector(nestedUpdate))
         ]
         
         tableView.backgroundColor = .darkBlue
@@ -163,7 +166,7 @@ extension CompaniesController {
         
         
         CoreDataManager.shared.persistentContainer.performBackgroundTask { (context) in
-        
+            
             /// 1. This loops only adds 10 items iteratively into the core data object
             (0...10).forEach { (value) in
                 let company = CompanyEntity(context: context)
@@ -208,6 +211,132 @@ extension CompaniesController {
                 self?.dataSource.apply(snapshot!)
                 
             }
+        }
+    }
+    
+    
+    @objc func updateInBackground() {
+        
+        CoreDataManager.shared.persistentContainer.performBackgroundTask { (backContext) in
+            
+            let request: NSFetchRequest<CompanyEntity>  = CompanyEntity.fetchRequest()
+            
+            do {
+                let companies = try backContext.fetch(request)
+                
+                companies.forEach({$0.name = "B: \($0.name ?? "")"})
+                
+            } catch let error {
+                print(error.localizedDescription)
+            }
+            
+            
+            do {
+                try backContext.save()
+                
+                DispatchQueue.main.async { [weak self ] in
+                   
+                    self?.fetchDataFromStorage()
+                    
+                    var snapshot = self?.dataSource.snapshot()
+                    
+                    /// 5. ```deleteAllItems()``` deletes the section and items as well so call to ```snapshot.deleteSection()``` is not needed.
+                    snapshot?.deleteAllItems()
+                    
+                    /// 6. Regular work of updating the datasource.
+                    
+                    snapshot?.appendSections([.main])
+                    
+                    if let company = self?.companies {
+                        snapshot?.appendItems(company)
+                    }
+                    
+                    /// 7. Applying the snapshot.
+                    
+                    self?.dataSource.apply(snapshot!)
+                }
+                
+                
+            } catch let error {
+                print(error.localizedDescription)
+            }
+            
+        }
+    }
+    
+    @objc func nestedUpdate() {
+        
+        /// 1. Need to have a private context to have a nested update.
+        
+        let privateContext = CoreDataManager.shared.privateContext()
+        
+        /// 2. Every private context needs to set a parent context which refers the main context
+        
+        privateContext.parent = CoreDataManager.shared.persistentContainer.viewContext
+        
+        
+        /// 3. Initiate a request
+        let request: NSFetchRequest<CompanyEntity> = CompanyEntity.fetchRequest()
+        
+        /// 4. Set a fetch limit.
+        request.fetchLimit = 10
+        
+        do {
+            /// 5. Fetch the context from the private perspective
+            
+            let companies = try privateContext.fetch(request)
+            
+            /// 6. Update the data set fetched from the private context
+            
+            companies.forEach { (company) in
+                company.name = "E: \(company.name ?? "")"
+            }
+            
+            do {
+                
+                /// 7. Saving the private context.
+                try privateContext.save()
+                
+                ///8. Hopping into the main thread.
+                
+                DispatchQueue.main.async { [weak self ] in
+                    
+                    do {
+                        /// 9. We need the ```viewContext``` to reflect the changes from the child context(Fresh Context)
+                        
+                        let context = CoreDataManager.shared.persistentContainer.viewContext
+                        
+                        /// 10. Core Data suggests that it is better to check the if there are changes or not.
+                        
+                        if context.hasChanges {
+                            
+                            /// 11. Finally save the recent data.
+                            try context.save()
+                            
+                            var snapshot = self?.dataSource.snapshot()
+                            
+                            /// 12. Allowing the section to reload the selected section only reflects the desired changes.
+                            
+                            snapshot?.reloadSections([.main])
+                            
+                            /// 13. Finally the dance of applying the snapshot.
+                            
+                            self?.dataSource.apply(snapshot!, animatingDifferences: false)
+                        }
+                        
+                    } catch let error {
+                        print(error.localizedDescription)
+                    }
+                    
+                }
+                
+            } catch let error {
+                print("save error", error)
+            }
+            
+            
+        } catch let error {
+            print(error)
         }
     }
 }

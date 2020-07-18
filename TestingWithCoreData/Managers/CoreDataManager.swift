@@ -95,4 +95,16 @@ struct CoreDataManager {
         return false
         
     }
+    
+//    func getFetchRequestForObject <T: NSManagedObject> (object: T) -> NSFetchRequest<T> {
+//        return T.fetchRequest() as NSFetchRequest
+//    }
+    
+    
+     func privateContext() -> NSManagedObjectContext {
+       
+        let context = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        
+        return context
+    }
 }
