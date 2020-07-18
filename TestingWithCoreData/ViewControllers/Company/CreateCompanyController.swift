@@ -82,7 +82,7 @@ class CreateCompanyController: UIViewController {
         
         view.backgroundColor = .systemBackground
         
-        configureNavigationBar()
+        configureNavigationBar(title: "Create Company")
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Create", style: .plain, target: self, action: #selector(handleCreate))
         
@@ -163,7 +163,7 @@ extension CreateCompanyController {
     
     func handleSave() {
         
-        let company = CoreDataManager.shared.getObjectForContext(entityObject: CompanyEntity.self, entityName: "CompanyEntity")
+        let company = CoreDataManager.shared.getObjectForContext(entityObject: CompanyEntity.self)
         
         guard let text = companyTextField.text else { fatalError() }
         

@@ -29,9 +29,9 @@ struct CoreDataManager {
     
     //MARK:- Retrieves the data from entity object
     
-    func fetch <T: NSManagedObject>(entityObject: T.Type, entityName: String) -> [T]? {
+    func fetch <T: NSManagedObject>(entityObject: T.Type) -> [T]? {
         
-        let request = NSFetchRequest<T>.init(entityName: entityName)
+        let request = NSFetchRequest<T>.init(entityName: String(describing: entityObject))
         
         do {
             let fetchedObject = try persistentContainer.viewContext.fetch(request)
@@ -46,9 +46,11 @@ struct CoreDataManager {
     
     //MARK:- Retrieves the object to save.
     
-    func getObjectForContext <T: NSManagedObject> (entityObject: T.Type, entityName: String) -> T? {
+    func getObjectForContext <T: NSManagedObject> (entityObject: T.Type) -> T? {
         
-        let object = NSEntityDescription.insertNewObject(forEntityName: entityName, into: persistentContainer.viewContext) as? T
+//        let object = NSEntityDescription.insertNewObject(forEntityName: String(describing: entityObject), into: persistentContainer.viewContext) as? T
+        
+        let object = T(context: persistentContainer.viewContext) 
         
         return object
     }

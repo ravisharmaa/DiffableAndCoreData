@@ -11,14 +11,14 @@ import UIKit
 
 extension UIViewController {
     
-    func configureNavigationBar() {
+    func configureNavigationBar(title: String) {
         
         
         navigationController?.navigationBar.isTranslucent = false
         
         navigationController?.navigationBar.prefersLargeTitles = true
         
-        navigationItem.title = "Companies"
+        navigationItem.title = title
         
         if #available(iOS 13.0, *) {
             let navAppearance = UINavigationBarAppearance()

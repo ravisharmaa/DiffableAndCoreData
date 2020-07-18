@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5135C10824C1BF4600E74504 /* CompaniesController+UITableViewExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5135C10724C1BF4600E74504 /* CompaniesController+UITableViewExt.swift */; };
+		5135C10A24C1C2B100E74504 /* EmployeesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5135C10924C1C2B000E74504 /* EmployeesController.swift */; };
+		5135C10D24C1C89100E74504 /* CreateEmployeeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5135C10C24C1C89100E74504 /* CreateEmployeeController.swift */; };
 		51C31EF224C0687E0021575A /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C31EF124C0687E0021575A /* CoreDataManager.swift */; };
 		51D3927D24C05B3F00F81D85 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51D3927B24C05B3F00F81D85 /* LaunchScreen.storyboard */; };
 		51D3928524C05B5600F81D85 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D3928424C05B5600F81D85 /* AppDelegate.swift */; };
@@ -22,6 +25,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5135C10724C1BF4600E74504 /* CompaniesController+UITableViewExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CompaniesController+UITableViewExt.swift"; sourceTree = "<group>"; };
+		5135C10924C1C2B000E74504 /* EmployeesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeesController.swift; sourceTree = "<group>"; };
+		5135C10C24C1C89100E74504 /* CreateEmployeeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEmployeeController.swift; sourceTree = "<group>"; };
 		51C31EF124C0687E0021575A /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		51D3926D24C05B3D00F81D85 /* TestingWithCoreData.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestingWithCoreData.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		51D3927C24C05B3F00F81D85 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -52,6 +58,7 @@
 		5135C0FF24C1BD4300E74504 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				5135C10B24C1C87F00E74504 /* Employee */,
 				5135C10024C1BD4A00E74504 /* Company */,
 			);
 			path = ViewControllers;
@@ -62,6 +69,7 @@
 			children = (
 				51D3929424C05BA900F81D85 /* CompaniesController.swift */,
 				51D3928924C05B7300F81D85 /* CreateCompanyController.swift */,
+				5135C10724C1BF4600E74504 /* CompaniesController+UITableViewExt.swift */,
 			);
 			path = Company;
 			sourceTree = "<group>";
@@ -113,6 +121,15 @@
 				51D3929624C05CF300F81D85 /* CoreDataModel.xcdatamodeld */,
 			);
 			path = Database;
+			sourceTree = "<group>";
+		};
+		5135C10B24C1C87F00E74504 /* Employee */ = {
+			isa = PBXGroup;
+			children = (
+				5135C10C24C1C89100E74504 /* CreateEmployeeController.swift */,
+				5135C10924C1C2B000E74504 /* EmployeesController.swift */,
+			);
+			path = Employee;
 			sourceTree = "<group>";
 		};
 		51D3926424C05B3D00F81D85 = {
@@ -176,7 +193,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1150;
-				LastUpgradeCheck = 1150;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = "Ravi Bastola";
 				TargetAttributes = {
 					51D3926C24C05B3D00F81D85 = {
@@ -226,8 +243,11 @@
 				51D3928724C05B6500F81D85 /* SceneDelegate.swift in Sources */,
 				51D3929824C05CF300F81D85 /* CoreDataModel.xcdatamodeld in Sources */,
 				51D3928D24C05B7300F81D85 /* CompanyCell.swift in Sources */,
+				5135C10D24C1C89100E74504 /* CreateEmployeeController.swift in Sources */,
+				5135C10A24C1C2B100E74504 /* EmployeesController.swift in Sources */,
 				51D3929124C05B7300F81D85 /* Company.swift in Sources */,
 				51C31EF224C0687E0021575A /* CoreDataManager.swift in Sources */,
+				5135C10824C1BF4600E74504 /* CompaniesController+UITableViewExt.swift in Sources */,
 				51D3929524C05BA900F81D85 /* CompaniesController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -272,6 +292,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -332,6 +353,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
