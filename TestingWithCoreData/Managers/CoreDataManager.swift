@@ -24,10 +24,21 @@ struct CoreDataManager {
                 assert(false)
             }
         }
+        
+        // avoids duplicate
+        
+        container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
         return container
     }()
     
-    //MARK:- Retrieves the data from entity object
+    let lazyContext: NSManagedObjectContext = {
+        
+        let context = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        
+        return context
+    }()
+    
+    //MARK:- Retrieves the data from entity object.
     
     func fetch <T: NSManagedObject>(entityObject: T.Type) -> [T]? {
         
@@ -48,7 +59,7 @@ struct CoreDataManager {
     
     func getObjectForContext <T: NSManagedObject> (entityObject: T.Type) -> T? {
         
-//        let object = NSEntityDescription.insertNewObject(forEntityName: String(describing: entityObject), into: persistentContainer.viewContext) as? T
+        //        let object = NSEntityDescription.insertNewObject(forEntityName: String(describing: entityObject), into: persistentContainer.viewContext) as? T
         
         let object = T(context: persistentContainer.viewContext) 
         
@@ -56,7 +67,7 @@ struct CoreDataManager {
     }
     
     
-    // MARK:- Deletes and object from storage
+    // MARK:- Deletes and object from storage.
     
     /// added  ```discardable``` to ignore the return value,  check if the deletion is successful or not.
     
@@ -96,13 +107,18 @@ struct CoreDataManager {
         
     }
     
-//    func getFetchRequestForObject <T: NSManagedObject> (object: T) -> NSFetchRequest<T> {
-//        return T.fetchRequest() as NSFetchRequest
-//    }
+    //MARK:- Gets the fetch request object for an entity.
+    
+    func getRequestObject <T: NSManagedObject>(object: T.Type) -> NSFetchRequest<T> {
+        
+        return NSFetchRequest<T>(entityName: String(describing: object))
+    }
     
     
-     func privateContext() -> NSManagedObjectContext {
-       
+    // MARK:- Gets the private context for object.
+    
+    func privateContext() -> NSManagedObjectContext {
+        
         let context = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         
         return context

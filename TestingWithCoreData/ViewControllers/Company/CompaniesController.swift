@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import CoreData
 
 class CustomNavigationController: UINavigationController {
     
@@ -219,7 +218,7 @@ extension CompaniesController {
         
         CoreDataManager.shared.persistentContainer.performBackgroundTask { (backContext) in
             
-            let request: NSFetchRequest<CompanyEntity>  = CompanyEntity.fetchRequest()
+            let request = CoreDataManager.shared.getRequestObject(object: CompanyEntity.self)
             
             do {
                 let companies = try backContext.fetch(request)
@@ -276,10 +275,10 @@ extension CompaniesController {
         
         
         /// 3. Initiate a request
-        let request: NSFetchRequest<CompanyEntity> = CompanyEntity.fetchRequest()
+        let request = CoreDataManager.shared.getRequestObject(object: CompanyEntity.self)
         
         /// 4. Set a fetch limit.
-        request.fetchLimit = 10
+        request.fetchLimit = 2
         
         do {
             /// 5. Fetch the context from the private perspective
@@ -289,7 +288,7 @@ extension CompaniesController {
             /// 6. Update the data set fetched from the private context
             
             companies.forEach { (company) in
-                company.name = "E: \(company.name ?? "")"
+                company.name = "F: \(company.name ?? "")"
             }
             
             do {

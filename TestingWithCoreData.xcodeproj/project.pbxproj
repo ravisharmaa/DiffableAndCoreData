@@ -22,6 +22,7 @@
 		51D3929324C05B8F00F81D85 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 51D3929224C05B8F00F81D85 /* Assets.xcassets */; };
 		51D3929524C05BA900F81D85 /* CompaniesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D3929424C05BA900F81D85 /* CompaniesController.swift */; };
 		51D3929824C05CF300F81D85 /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 51D3929624C05CF300F81D85 /* CoreDataModel.xcdatamodeld */; };
+		51F8780824C3613E0000121B /* FetchedResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F8780724C3613E0000121B /* FetchedResultsController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		51D3929224C05B8F00F81D85 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		51D3929424C05BA900F81D85 /* CompaniesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompaniesController.swift; sourceTree = "<group>"; };
 		51D3929724C05CF300F81D85 /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
+		51F8780724C3613E0000121B /* FetchedResultsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchedResultsController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 		5135C0FF24C1BD4300E74504 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				51F8780624C361220000121B /* FetchedResultsExample */,
 				5135C10B24C1C87F00E74504 /* Employee */,
 				5135C10024C1BD4A00E74504 /* Company */,
 			);
@@ -166,6 +169,14 @@
 			path = TestingWithCoreData;
 			sourceTree = "<group>";
 		};
+		51F8780624C361220000121B /* FetchedResultsExample */ = {
+			isa = PBXGroup;
+			children = (
+				51F8780724C3613E0000121B /* FetchedResultsController.swift */,
+			);
+			path = FetchedResultsExample;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -248,6 +259,7 @@
 				51D3929124C05B7300F81D85 /* Company.swift in Sources */,
 				51C31EF224C0687E0021575A /* CoreDataManager.swift in Sources */,
 				5135C10824C1BF4600E74504 /* CompaniesController+UITableViewExt.swift in Sources */,
+				51F8780824C3613E0000121B /* FetchedResultsController.swift in Sources */,
 				51D3929524C05BA900F81D85 /* CompaniesController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

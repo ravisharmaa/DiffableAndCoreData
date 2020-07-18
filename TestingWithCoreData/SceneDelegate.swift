@@ -23,7 +23,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window?.windowScene = windowScene
         
-        window?.rootViewController = CustomNavigationController(rootViewController: CompaniesController())
+        window?.rootViewController = CustomNavigationController(rootViewController: FetchedResultsController())
         
         window?.makeKeyAndVisible()
         
