@@ -41,7 +41,11 @@ class CompaniesController: UITableViewController {
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Plus")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(handleBarItemClicked))
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Delete All", style: .plain, target: self, action: #selector(handleClearAll))
+        navigationItem.leftBarButtonItems = [
+            
+            UIBarButtonItem(title: "Delete All", style: .plain, target: self, action: #selector(handleClearAll)),
+            UIBarButtonItem(title: "Insert In Background Thread", style: .plain, target: self, action: #selector(insertInBackGroundThread))
+        ]
         
         tableView.backgroundColor = .darkBlue
         
@@ -121,12 +125,12 @@ extension CompaniesController {
     @objc fileprivate func handleClearAll() {
         
         var snapshot = dataSource.snapshot()
-                
+        
         if self.companies.isEmpty {
-           
+            
             guard let company = CoreDataManager.shared.fetch(entityObject: CompanyEntity.self) else { return }
             snapshot.deleteItems(company)
-        
+            
         } else {
             snapshot.deleteItems(self.companies)
         }
@@ -134,6 +138,77 @@ extension CompaniesController {
         CoreDataManager.shared.batchDelete(object: CompanyEntity.self)
         
         dataSource.apply(snapshot, animatingDifferences: true)
+    }
+    
+    @objc func insertInBackGroundThread() {
+        
+        //        DispatchQueue.global(qos: .background).async {
+        //
+        //            // creating core data object in background thread produces crashes
+        //            let context = CoreDataManager.shared.persistentContainer.viewContext
+        //            (0...10).forEach { (value) in
+        //                let company = CompanyEntity(context: context)
+        //                company.name = "\(value)"
+        //            }
+        //
+        //            do {
+        //                try context.save()
+        //            } catch let error {
+        //                print(error)
+        //            }
+        //        }
+        
+        
+        /// ```performBackgroundTask```  executes the task in background thread.
+        
+        
+        CoreDataManager.shared.persistentContainer.performBackgroundTask { (context) in
+        
+            /// 1. This loops only adds 10 items iteratively into the core data object
+            (0...10).forEach { (value) in
+                let company = CompanyEntity(context: context)
+                company.name = "\(value)"
+            }
+            
+            do {
+                try context.save()
+            } catch let error {
+                print(error)
+            }
+            
+            
+            DispatchQueue.main.async { [weak self] in
+                
+                /// 2. Need to clear any lingering data from the source
+                self?.companies = []
+                
+                
+                /// 3. Fetch the recently created data
+                self?.fetchDataFromStorage()
+                
+                
+                /// 4. In this particular example the snapshot was already created so ```configureDataSource()``` simply adding this method won't work because the number of sections and item will conflict, as in the
+                /// ```configureMethod``` we don't check whether the section is already added or not or whether items are already available or not.
+                
+                var snapshot = self?.dataSource.snapshot()
+                
+                /// 5. ```deleteAllItems()``` deletes the section and items as well so call to ```snapshot.deleteSection()``` is not needed.
+                snapshot?.deleteAllItems()
+                
+                /// 6. Regular work of updating the datasource.
+                
+                snapshot?.appendSections([.main])
+                
+                if let company = self?.companies {
+                    snapshot?.appendItems(company)
+                }
+                
+                /// 7. Applying the snapshot.
+                
+                self?.dataSource.apply(snapshot!)
+                
+            }
+        }
     }
 }
 
