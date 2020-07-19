@@ -55,19 +55,32 @@ class JSONExampleViewController: UITableViewController {
         
         configureDataSource()
         configureSnapshot()
-
-        NetworkManager.shared.fetch(object: [Company].self) { [weak self ] (response) in
-
-            switch response {
-
-            case .success(let companies):
-                
-                self?.saveToCoreData(companies)
+        
+        do {
+            try  fetchedResultsController.performFetch()
             
-            case .failure(let error):
-                print(error)
+            guard let companies = fetchedResultsController.fetchedObjects else { return }
+            
+            self.companies = companies
+            
+            if companies.count <= 0 {
+                
+                NetworkManager.shared.fetch(object: [Company].self) { [weak self ] (response) in
+                
+                    switch response {
+            
+                    case .success(let companies):
+                        self?.saveToCoreData(companies)
+                    case .failure(let error):
+                        print(error)
+                    }
+                }
             }
+        } catch let error {
+            print(error.localizedDescription)
         }
+        
+        
     }
     
     func configureDataSource() {
@@ -92,6 +105,7 @@ class JSONExampleViewController: UITableViewController {
             snapshot.appendSections([.main])
             
             self.companies = fetchedResultsController.fetchedObjects ?? []
+            
             snapshot.appendItems( self.companies)
             
             dataSource.apply(snapshot, animatingDifferences: true)
@@ -126,7 +140,7 @@ class JSONExampleViewController: UITableViewController {
             }
             
         } catch let error {
-            print(error.localizedDescription)
+            print(error)
         }
     }
 }
@@ -152,6 +166,18 @@ extension JSONExampleViewController {
     }
     
     @objc func checkUpdate() {
+        
+        // fetch -> []
+        // update -> []
+        
+        // 100
+        // 20
+        
+        // 20
+        
+        // 100-20 = 80
+        
+        // 20 ->
         
     }
 }

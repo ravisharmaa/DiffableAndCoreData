@@ -35,16 +35,12 @@ enum NetworkingError: Error, CustomStringConvertible {
     var description: String {
         
         switch self {
-        
         case .BadURL:
             return "Whoops!, Cannot Parse the URL."
-        
         case .ResponseError:
             return "Went to the network but could not get the response."
-        
         case .StatusError:
             return "Went to the network but could not get the response, because the status code was not ok."
-            
         case .InvalidData:
             return "Went to the network but got the response, but the data was not ok."
         }
@@ -82,18 +78,11 @@ struct NetworkManager: Networking {
             }
             
             do {
-                
                 let response = try JSONDecoder().decode(T.self, from: data)
-               
                 completion(.success(response))
-            
             } catch let error {
-                
                 print(error)
             }
-            
-            
-            
         }.resume()
     }
 }
