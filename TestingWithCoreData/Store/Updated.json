@@ -1,0 +1,27 @@
+[
+  {
+    "name": "Apple Nepal",
+    "photoUrl": "https://letsbuildthatapp-videos.s3-us-west-2.amazonaws.com/467e07c1-da78-4f79-81e9-5274f05cf405",
+    "founded": "04/01/1976",
+    "id": 1
+  },
+  {
+    "name": "Microsoft India",
+    "photoUrl": "https://letsbuildthatapp-videos.s3-us-west-2.amazonaws.com/e7092b54-d59b-4e5f-941b-d17107db3e7e",
+    "founded": "",
+    "id": 3
+  },
+  {
+    "name": "Uber Pathao",
+    "photoUrl": "https://letsbuildthatapp-videos.s3-us-west-2.amazonaws.com/80d8afd1-ac2e-4260-b56c-eb8aa95fa5f4",
+    "founded": "",
+    "id": 5
+  },
+  {
+    "name": "Twitter Facebook",
+    "photoUrl": "https://letsbuildthatapp-videos.s3-us-west-2.amazonaws.com/67722930-bd5f-4d9c-b12d-8d835cd2221f",
+    "founded": "",
+    "id": 6
+  }
+]
+

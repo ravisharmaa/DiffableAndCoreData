@@ -65,16 +65,27 @@ class JSONExampleViewController: UITableViewController {
             
             if companies.count <= 0 {
                 
-                NetworkManager.shared.fetch(object: [Company].self) { [weak self ] (response) in
+                //                NetworkManager.shared.fetch(object: [Company].self) { [weak self ] (response) in
+                //
+                //                    switch response {
+                //
+                //                    case .success(let companies):
+                //                        self?.saveToCoreData(companies)
+                //                    case .failure(let error):
+                //                        print(error)
+                //                    }
+                //                }
                 
+                Reader.shared.read(from: "InitialData", fileExtension: .json, responsible: [Company].self) { [weak self] (response) in
                     switch response {
-            
+                    
                     case .success(let companies):
                         self?.saveToCoreData(companies)
                     case .failure(let error):
                         print(error)
                     }
                 }
+                
             }
         } catch let error {
             print(error.localizedDescription)
@@ -128,6 +139,7 @@ class JSONExampleViewController: UITableViewController {
         companies.forEach { (company) in
             let entity = CompanyEntity(context: privateContext)
             entity.name = company.name
+            entity.id = company.id!
         }
         
         do {
@@ -167,17 +179,48 @@ extension JSONExampleViewController {
     
     @objc func checkUpdate() {
         
-        // fetch -> []
-        // update -> []
-        
-        // 100
-        // 20
-        
-        // 20
-        
-        // 100-20 = 80
-        
-        // 20 ->
-        
+        Reader.shared.read(from: "Updated", fileExtension: .json, responsible: [Company].self) { (response) in
+            switch response {
+            
+            case .success:
+                
+                let privateContext = CoreDataManager.shared.privateContext
+                privateContext.parent = CoreDataManager.shared.persistentContainer.viewContext
+                let request = CoreDataManager.shared.getRequestObject(object: CompanyEntity.self)
+                do {
+                    let _ = try privateContext.fetch(request)
+                    
+                   
+                    do {
+                        try privateContext.save()
+                        DispatchQueue.main.async { [weak self ] in
+                            do {
+                                let context = CoreDataManager.shared.persistentContainer.viewContext
+                                if context.hasChanges {
+                                    
+                                    try context.save()
+                                    
+                                    var snapshot = self?.dataSource.snapshot()
+                                    snapshot?.reloadSections([.main])
+                                    self?.dataSource.apply(snapshot!, animatingDifferences: false)
+                                }
+                            } catch let error {
+                                print(error.localizedDescription)
+                            }
+                            
+                        }
+                    } catch let error {
+                        print("save error", error)
+                    }
+                } catch let error {
+                    print(error)
+                }
+                
+                
+                
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 }

@@ -2,6 +2,7 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17162" systemVersion="19E287" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="CompanyEntity" representedClassName="CompanyEntity" syncable="YES">
         <attribute name="foundedDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="image" optional="YES" attributeType="Binary"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <relationship name="employees" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Employee" inverseName="company" inverseEntity="Employee"/>
@@ -25,7 +26,7 @@
         <relationship name="employee" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Employee" inverseName="employeeInfo" inverseEntity="Employee"/>
     </entity>
     <elements>
-        <element name="CompanyEntity" positionX="-69.35546875" positionY="-370.4453125" width="128" height="103"/>
+        <element name="CompanyEntity" positionX="-69.35546875" positionY="-370.4453125" width="128" height="118"/>
         <element name="Employee" positionX="-187.6640625" positionY="-81.05859375" width="128" height="118"/>
         <element name="EmployeeAddress" positionX="72" positionY="-153" width="128" height="103"/>
         <element name="EmployeeInformation" positionX="320.31640625" positionY="-11.1328125" width="128" height="88"/>

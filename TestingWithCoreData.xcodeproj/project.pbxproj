@@ -18,6 +18,9 @@
 		5145EE2024C37BF5007DEA31 /* EmployeeAddress+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5145EE1824C37BF5007DEA31 /* EmployeeAddress+CoreDataProperties.swift */; };
 		5145EE2124C37BF5007DEA31 /* EmployeeInformation+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5145EE1924C37BF5007DEA31 /* EmployeeInformation+CoreDataClass.swift */; };
 		5145EE2224C37BF5007DEA31 /* EmployeeInformation+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5145EE1A24C37BF5007DEA31 /* EmployeeInformation+CoreDataProperties.swift */; };
+		514923DC24C452F9009751A0 /* InitialData.json in Resources */ = {isa = PBXBuildFile; fileRef = 514923DB24C452F9009751A0 /* InitialData.json */; };
+		514923DE24C4541E009751A0 /* Updated.json in Resources */ = {isa = PBXBuildFile; fileRef = 514923DD24C4541E009751A0 /* Updated.json */; };
+		514923E124C454DB009751A0 /* ReaderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514923E024C454DB009751A0 /* ReaderService.swift */; };
 		51BF3B5824C3E79400D23C09 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51BF3B5724C3E79400D23C09 /* NetworkManager.swift */; };
 		51BF3B5B24C3ECD400D23C09 /* JSONExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51BF3B5A24C3ECD400D23C09 /* JSONExampleViewController.swift */; };
 		51C31EF224C0687E0021575A /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C31EF124C0687E0021575A /* CoreDataManager.swift */; };
@@ -47,6 +50,9 @@
 		5145EE1824C37BF5007DEA31 /* EmployeeAddress+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EmployeeAddress+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		5145EE1924C37BF5007DEA31 /* EmployeeInformation+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EmployeeInformation+CoreDataClass.swift"; sourceTree = "<group>"; };
 		5145EE1A24C37BF5007DEA31 /* EmployeeInformation+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EmployeeInformation+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		514923DB24C452F9009751A0 /* InitialData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = InitialData.json; sourceTree = "<group>"; };
+		514923DD24C4541E009751A0 /* Updated.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Updated.json; sourceTree = "<group>"; };
+		514923E024C454DB009751A0 /* ReaderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderService.swift; sourceTree = "<group>"; };
 		51BF3B5724C3E79400D23C09 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		51BF3B5A24C3ECD400D23C09 /* JSONExampleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONExampleViewController.swift; sourceTree = "<group>"; };
 		51C31EF124C0687E0021575A /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
@@ -173,6 +179,23 @@
 			path = Employee;
 			sourceTree = "<group>";
 		};
+		514923DF24C454CB009751A0 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				514923E024C454DB009751A0 /* ReaderService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		514923E224C456E6009751A0 /* Store */ = {
+			isa = PBXGroup;
+			children = (
+				514923DB24C452F9009751A0 /* InitialData.json */,
+				514923DD24C4541E009751A0 /* Updated.json */,
+			);
+			path = Store;
+			sourceTree = "<group>";
+		};
 		51BF3B5924C3ECB900D23C09 /* JSON Example */ = {
 			isa = PBXGroup;
 			children = (
@@ -200,6 +223,8 @@
 		51D3926F24C05B3D00F81D85 /* TestingWithCoreData */ = {
 			isa = PBXGroup;
 			children = (
+				514923E224C456E6009751A0 /* Store */,
+				514923DF24C454CB009751A0 /* Service */,
 				5135C10624C1BDB200E74504 /* Database */,
 				5135C10224C1BD6800E74504 /* Extensions */,
 				5135C10524C1BD9300E74504 /* Managers */,
@@ -281,8 +306,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				514923DC24C452F9009751A0 /* InitialData.json in Resources */,
 				51D3927D24C05B3F00F81D85 /* LaunchScreen.storyboard in Resources */,
 				51D3929324C05B8F00F81D85 /* Assets.xcassets in Resources */,
+				514923DE24C4541E009751A0 /* Updated.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -311,6 +338,7 @@
 				51C31EF224C0687E0021575A /* CoreDataManager.swift in Sources */,
 				5145EE2024C37BF5007DEA31 /* EmployeeAddress+CoreDataProperties.swift in Sources */,
 				5145EE1E24C37BF5007DEA31 /* CompanyEntity+CoreDataProperties.swift in Sources */,
+				514923E124C454DB009751A0 /* ReaderService.swift in Sources */,
 				5135C10824C1BF4600E74504 /* CompaniesController+UITableViewExt.swift in Sources */,
 				51F8780824C3613E0000121B /* FetchedResultsController.swift in Sources */,
 				5145EE1D24C37BF5007DEA31 /* CompanyEntity+CoreDataClass.swift in Sources */,

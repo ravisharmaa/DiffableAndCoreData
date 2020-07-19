@@ -10,6 +10,7 @@ import Foundation
 
 struct Company:  Codable {
     
+    let id: Int16?
     let name: String?
     let founded: String?
 }

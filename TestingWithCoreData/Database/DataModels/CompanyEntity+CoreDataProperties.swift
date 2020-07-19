@@ -20,6 +20,7 @@ extension CompanyEntity {
     @NSManaged public var foundedDate: Date?
     @NSManaged public var image: Data?
     @NSManaged public var name: String?
+    @NSManaged public var id: Int16
     @NSManaged public var employees: NSSet?
 
 }
