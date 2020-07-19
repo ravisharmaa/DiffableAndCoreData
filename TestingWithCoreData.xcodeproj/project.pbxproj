@@ -18,6 +18,8 @@
 		5145EE2024C37BF5007DEA31 /* EmployeeAddress+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5145EE1824C37BF5007DEA31 /* EmployeeAddress+CoreDataProperties.swift */; };
 		5145EE2124C37BF5007DEA31 /* EmployeeInformation+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5145EE1924C37BF5007DEA31 /* EmployeeInformation+CoreDataClass.swift */; };
 		5145EE2224C37BF5007DEA31 /* EmployeeInformation+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5145EE1A24C37BF5007DEA31 /* EmployeeInformation+CoreDataProperties.swift */; };
+		51BF3B5824C3E79400D23C09 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51BF3B5724C3E79400D23C09 /* NetworkManager.swift */; };
+		51BF3B5B24C3ECD400D23C09 /* JSONExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51BF3B5A24C3ECD400D23C09 /* JSONExampleViewController.swift */; };
 		51C31EF224C0687E0021575A /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C31EF124C0687E0021575A /* CoreDataManager.swift */; };
 		51D3927D24C05B3F00F81D85 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51D3927B24C05B3F00F81D85 /* LaunchScreen.storyboard */; };
 		51D3928524C05B5600F81D85 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D3928424C05B5600F81D85 /* AppDelegate.swift */; };
@@ -45,6 +47,8 @@
 		5145EE1824C37BF5007DEA31 /* EmployeeAddress+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EmployeeAddress+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		5145EE1924C37BF5007DEA31 /* EmployeeInformation+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EmployeeInformation+CoreDataClass.swift"; sourceTree = "<group>"; };
 		5145EE1A24C37BF5007DEA31 /* EmployeeInformation+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EmployeeInformation+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		51BF3B5724C3E79400D23C09 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		51BF3B5A24C3ECD400D23C09 /* JSONExampleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONExampleViewController.swift; sourceTree = "<group>"; };
 		51C31EF124C0687E0021575A /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		51D3926D24C05B3D00F81D85 /* TestingWithCoreData.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestingWithCoreData.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		51D3927C24C05B3F00F81D85 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -91,6 +95,7 @@
 		5135C0FF24C1BD4300E74504 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				51BF3B5924C3ECB900D23C09 /* JSON Example */,
 				51F8780624C361220000121B /* FetchedResultsExample */,
 				5135C10B24C1C87F00E74504 /* Employee */,
 				5135C10024C1BD4A00E74504 /* Company */,
@@ -145,6 +150,7 @@
 			isa = PBXGroup;
 			children = (
 				51C31EF124C0687E0021575A /* CoreDataManager.swift */,
+				51BF3B5724C3E79400D23C09 /* NetworkManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -165,6 +171,14 @@
 				5135C10924C1C2B000E74504 /* EmployeesController.swift */,
 			);
 			path = Employee;
+			sourceTree = "<group>";
+		};
+		51BF3B5924C3ECB900D23C09 /* JSON Example */ = {
+			isa = PBXGroup;
+			children = (
+				51BF3B5A24C3ECD400D23C09 /* JSONExampleViewController.swift */,
+			);
+			path = "JSON Example";
 			sourceTree = "<group>";
 		};
 		51D3926424C05B3D00F81D85 = {
@@ -279,12 +293,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				51BF3B5824C3E79400D23C09 /* NetworkManager.swift in Sources */,
 				5145EE2224C37BF5007DEA31 /* EmployeeInformation+CoreDataProperties.swift in Sources */,
 				51D3928524C05B5600F81D85 /* AppDelegate.swift in Sources */,
 				51D3928E24C05B7300F81D85 /* CreateCompanyController.swift in Sources */,
 				51D3928F24C05B7300F81D85 /* UIColor+Extension.swift in Sources */,
 				51D3929024C05B7300F81D85 /* UIViewController+Extension.swift in Sources */,
 				51D3928724C05B6500F81D85 /* SceneDelegate.swift in Sources */,
+				51BF3B5B24C3ECD400D23C09 /* JSONExampleViewController.swift in Sources */,
 				5145EE2124C37BF5007DEA31 /* EmployeeInformation+CoreDataClass.swift in Sources */,
 				5145EE1C24C37BF5007DEA31 /* Employee+CoreDataProperties.swift in Sources */,
 				51D3929824C05CF300F81D85 /* CoreDataModel.xcdatamodeld in Sources */,

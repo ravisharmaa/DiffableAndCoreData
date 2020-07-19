@@ -8,11 +8,8 @@
 
 import Foundation
 
-struct Company: Codable, Hashable {
+struct Company:  Codable {
     
     let name: String?
-    
-    var identifier = UUID()
-    
-    let founded: Date?
+    let founded: String?
 }

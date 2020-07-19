@@ -31,7 +31,7 @@ struct CoreDataManager {
         return container
     }()
     
-    let lazyContext: NSManagedObjectContext = {
+    let privateContext: NSManagedObjectContext = {
         
         let context = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         
@@ -112,15 +112,5 @@ struct CoreDataManager {
     func getRequestObject <T: NSManagedObject>(object: T.Type) -> NSFetchRequest<T> {
         
         return NSFetchRequest<T>(entityName: String(describing: object))
-    }
-    
-    
-    // MARK:- Gets the private context for object.
-    
-    func privateContext() -> NSManagedObjectContext {
-        
-        let context = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        
-        return context
     }
 }

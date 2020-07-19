@@ -267,7 +267,7 @@ extension CompaniesController {
         
         /// 1. Need to have a private context to have a nested update.
         
-        let privateContext = CoreDataManager.shared.privateContext()
+        let privateContext = CoreDataManager.shared.privateContext
         
         /// 2. Every private context needs to set a parent context which refers the main context
         
