@@ -71,7 +71,6 @@ class FetchedResultsController: UITableViewController {
         var snapshot = NSDiffableDataSourceSnapshot<TableSection, CompanyEntity>()
         
         do {
-            
             try fetchedResultsController.performFetch()
             
             snapshot.appendSections([.main])
@@ -83,14 +82,12 @@ class FetchedResultsController: UITableViewController {
         } catch let error {
             print(error.localizedDescription)
         }
-        
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
     }
 }
-
 
 extension FetchedResultsController {
     
@@ -110,6 +107,7 @@ extension FetchedResultsController {
     }
     
     @objc func handleDelete() {
+       
         let request = CoreDataManager.shared.getRequestObject(object: CompanyEntity.self)
         
         request.predicate = NSPredicate(format: "name CONTAINS %@", "G")

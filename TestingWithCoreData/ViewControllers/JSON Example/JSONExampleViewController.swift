@@ -33,6 +33,8 @@ class JSONExampleViewController: UITableViewController {
         return controller
     }()
     
+    var companies: [CompanyEntity] = [CompanyEntity]()
+    
     var dataSource: UITableViewDiffableDataSource<TableSection, CompanyEntity>!
     
     override func viewDidLoad() {
@@ -45,10 +47,15 @@ class JSONExampleViewController: UITableViewController {
         
         tableView.register(CompanyCell.self, forCellReuseIdentifier: "reuseMe")
         
+        
+        navigationItem.leftBarButtonItems = [
+            UIBarButtonItem(title: "Check For Update", style: .done, target: self, action: #selector(checkUpdate)),
+            UIBarButtonItem(title: "Delete", style: .done, target: self, action: #selector(handleDelete)),
+        ]
+        
         configureDataSource()
         configureSnapshot()
-        
-        
+
         NetworkManager.shared.fetch(object: [Company].self) { [weak self ] (response) in
 
             switch response {
@@ -80,25 +87,23 @@ class JSONExampleViewController: UITableViewController {
         var snapshot = NSDiffableDataSourceSnapshot<TableSection, CompanyEntity>()
         
         do {
-            
-            
             try fetchedResultsController.performFetch()
+            
             snapshot.appendSections([.main])
             
-            snapshot.appendItems(fetchedResultsController.fetchedObjects ?? [])
+            self.companies = fetchedResultsController.fetchedObjects ?? []
+            snapshot.appendItems( self.companies)
             
-            dataSource.apply(snapshot, animatingDifferences: false)
+            dataSource.apply(snapshot, animatingDifferences: true)
             
         } catch let error {
             print(error.localizedDescription)
         }
-        
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
     }
-    
     
     func saveToCoreData(_ companies: [Company]) {
         
@@ -113,19 +118,12 @@ class JSONExampleViewController: UITableViewController {
         
         do {
             
-            guard CoreDataManager.shared.persistentContainer.viewContext.hasChanges else { return }
-            
             try privateContext.save()
             try privateContext.parent?.save()
             
-           
-            
             DispatchQueue.main.async {
-                self.configureDataSource()
                 self.configureSnapshot()
             }
-            
-            
             
         } catch let error {
             print(error.localizedDescription)
@@ -137,5 +135,23 @@ extension JSONExampleViewController: NSFetchedResultsControllerDelegate {
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         configureSnapshot()
+    }
+}
+
+extension JSONExampleViewController {
+    
+    @objc func handleDelete() {
+        CoreDataManager.shared.batchDelete(object: CompanyEntity.self)
+        
+        var snapshot = dataSource.snapshot()
+        
+        snapshot.deleteItems(self.companies)
+        
+        dataSource.apply(snapshot, animatingDifferences: true)
+        
+    }
+    
+    @objc func checkUpdate() {
+        
     }
 }

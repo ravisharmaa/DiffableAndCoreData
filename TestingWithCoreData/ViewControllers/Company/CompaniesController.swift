@@ -9,7 +9,6 @@
 import UIKit
 
 class CustomNavigationController: UINavigationController {
-    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
@@ -22,7 +21,6 @@ extension UINavigationController {
 }
 
 class CompaniesController: UITableViewController {
-    
     
     enum TableSection: CaseIterable {
         case main
@@ -55,7 +53,6 @@ class CompaniesController: UITableViewController {
         tableView.isUserInteractionEnabled = true
         
         fetchDataFromStorage()
-        
         configureDataSource()
     }
     
@@ -70,7 +67,6 @@ class CompaniesController: UITableViewController {
     
     
     func configureDataSource() {
-        
         
         dataSource = .init(tableView: tableView, cellProvider: { (tableView, indexPath, company) -> UITableViewCell? in
             
@@ -163,7 +159,6 @@ extension CompaniesController {
         
         /// ```performBackgroundTask```  executes the task in background thread.
         
-        
         CoreDataManager.shared.persistentContainer.performBackgroundTask { (context) in
             
             /// 1. This loops only adds 10 items iteratively into the core data object
@@ -178,12 +173,10 @@ extension CompaniesController {
                 print(error)
             }
             
-            
             DispatchQueue.main.async { [weak self] in
                 
                 /// 2. Need to clear any lingering data from the source
                 self?.companies = []
-                
                 
                 /// 3. Fetch the recently created data
                 self?.fetchDataFromStorage()
@@ -198,7 +191,6 @@ extension CompaniesController {
                 snapshot?.deleteAllItems()
                 
                 /// 6. Regular work of updating the datasource.
-                
                 snapshot?.appendSections([.main])
                 
                 if let company = self?.companies {
@@ -206,7 +198,6 @@ extension CompaniesController {
                 }
                 
                 /// 7. Applying the snapshot.
-                
                 self?.dataSource.apply(snapshot!)
                 
             }
@@ -270,10 +261,7 @@ extension CompaniesController {
         let privateContext = CoreDataManager.shared.privateContext
         
         /// 2. Every private context needs to set a parent context which refers the main context
-        
         privateContext.parent = CoreDataManager.shared.persistentContainer.viewContext
-        
-        
         /// 3. Initiate a request
         let request = CoreDataManager.shared.getRequestObject(object: CompanyEntity.self)
         
@@ -319,10 +307,8 @@ extension CompaniesController {
                             snapshot?.reloadSections([.main])
                             
                             /// 13. Finally the dance of applying the snapshot.
-                            
                             self?.dataSource.apply(snapshot!, animatingDifferences: false)
                         }
-                        
                     } catch let error {
                         print(error.localizedDescription)
                     }

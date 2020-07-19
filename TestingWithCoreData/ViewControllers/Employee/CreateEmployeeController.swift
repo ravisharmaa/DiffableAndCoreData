@@ -45,18 +45,15 @@ class CreateEmployeeController: UIViewController {
         let datePicker = UIDatePicker()
         datePicker.translatesAutoresizingMaskIntoConstraints = false
         return datePicker
-        
     }()
     
     
     fileprivate lazy var segmentedControl: UISegmentedControl = {
-        
         let control = UISegmentedControl(items: ["BOD","Management", "Staff"])
         control.selectedSegmentIndex = 0
         control.tintColor = .systemBlue
         control.translatesAutoresizingMaskIntoConstraints = false
         return control
-        
     }()
     
     var didTapCreateButton: ((_ employee: Employee?) -> Void)?
@@ -66,7 +63,6 @@ class CreateEmployeeController: UIViewController {
     
     init(company: CompanyEntity) {
         self.company = company
-        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -163,7 +159,6 @@ extension CreateEmployeeController {
         do {
             try CoreDataManager.shared.persistentContainer.viewContext.save()
             
-            
             dismiss(animated: true, completion: { [unowned self] in
                 self.didTapCreateButton?(employee)
             })
@@ -172,7 +167,6 @@ extension CreateEmployeeController {
             print(error)
         }
     }
-    
     
     @objc func handleClose() {
         dismiss(animated: true, completion: nil)

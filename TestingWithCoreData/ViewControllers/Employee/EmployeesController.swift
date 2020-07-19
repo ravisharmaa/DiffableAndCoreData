@@ -60,8 +60,6 @@ class EmployeesController: UITableViewController {
             self.employees = employees
         }
         
-        
-        
         configureDataSource()
     }
     
@@ -70,8 +68,6 @@ class EmployeesController: UITableViewController {
         super.viewWillAppear(animated)
         navigationItem.title = company.name
     }
-    
-    
     
     func configureDataSource() {
         
@@ -84,7 +80,6 @@ class EmployeesController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "reuseMe", for: indexPath)
             
             cell.backgroundColor = .tealColor
-            
             
             if let joined = employee.employeeInfo?.joinedDate {
                 let joinedString = formatter.string(from: joined)
@@ -107,9 +102,7 @@ class EmployeesController: UITableViewController {
         
         let staffEmployees = employees.filter({$0.role == "Staff"})
         
-        
         TableSection.allCases.forEach { (section) in
-            
             snapshot.appendSections([section])
             switch section {
             case .main:
@@ -121,9 +114,6 @@ class EmployeesController: UITableViewController {
             }
             
         }
-        
-        
-        
         dataSource.apply(snapshot, animatingDifferences: true)
     }
     
@@ -132,7 +122,6 @@ class EmployeesController: UITableViewController {
         guard let item = self.dataSource.itemIdentifier(for: indexPath) else { fatalError()}
         
         var snapshot = self.dataSource.snapshot()
-        
         
         let deleteHandler: UIContextualAction.Handler = { [weak self] _, _, completion in
             
@@ -148,7 +137,6 @@ class EmployeesController: UITableViewController {
         
         let deleteAction = UIContextualAction(style: .destructive,
                                               title: "Delete", handler: deleteHandler)
-        
         
         return UISwipeActionsConfiguration(actions: [deleteAction])
     }
@@ -208,7 +196,6 @@ extension EmployeesController {
             if TableSection.third.description == createdEmployee?.role {
                 snapshot?.appendItems([createdEmployee!], toSection: .third)
             }
-            
             
             self?.dataSource.apply(snapshot!, animatingDifferences: true)
         }
