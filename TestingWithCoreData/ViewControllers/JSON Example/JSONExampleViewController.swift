@@ -65,27 +65,16 @@ class JSONExampleViewController: UITableViewController {
             
             if companies.count <= 0 {
                 
-                //                NetworkManager.shared.fetch(object: [Company].self) { [weak self ] (response) in
-                //
-                //                    switch response {
-                //
-                //                    case .success(let companies):
-                //                        self?.saveToCoreData(companies)
-                //                    case .failure(let error):
-                //                        print(error)
-                //                    }
-                //                }
-                
-                Reader.shared.read(from: "InitialData", fileExtension: .json, responsible: [Company].self) { [weak self] (response) in
-                    switch response {
+                NetworkManager.shared.fetch(object: [Company].self) { [weak self ] (response) in
                     
+                    switch response {
+                        
                     case .success(let companies):
                         self?.saveToCoreData(companies)
                     case .failure(let error):
                         print(error)
                     }
                 }
-                
             }
         } catch let error {
             print(error.localizedDescription)
@@ -139,7 +128,6 @@ class JSONExampleViewController: UITableViewController {
         companies.forEach { (company) in
             let entity = CompanyEntity(context: privateContext)
             entity.name = company.name
-            entity.id = company.id!
         }
         
         do {
@@ -179,48 +167,50 @@ extension JSONExampleViewController {
     
     @objc func checkUpdate() {
         
-        Reader.shared.read(from: "Updated", fileExtension: .json, responsible: [Company].self) { (response) in
-            switch response {
+        let batchRequest = CoreDataManager.shared.getBatchUpdateRequest(object: CompanyEntity.self)
+        
+        let names = ["Apple","Google"]
+        
+        let privateContext = CoreDataManager.shared.privateContext
+        privateContext.parent = CoreDataManager.shared.persistentContainer.viewContext
+        
+        for (index, name) in names.enumerated() {
             
-            case .success:
-                
-                let privateContext = CoreDataManager.shared.privateContext
-                privateContext.parent = CoreDataManager.shared.persistentContainer.viewContext
-                let request = CoreDataManager.shared.getRequestObject(object: CompanyEntity.self)
-                do {
-                    let _ = try privateContext.fetch(request)
-                    
-                   
-                    do {
-                        try privateContext.save()
-                        DispatchQueue.main.async { [weak self ] in
-                            do {
-                                let context = CoreDataManager.shared.persistentContainer.viewContext
-                                if context.hasChanges {
-                                    
-                                    try context.save()
-                                    
-                                    var snapshot = self?.dataSource.snapshot()
-                                    snapshot?.reloadSections([.main])
-                                    self?.dataSource.apply(snapshot!, animatingDifferences: false)
-                                }
-                            } catch let error {
-                                print(error.localizedDescription)
-                            }
-                            
-                        }
-                    } catch let error {
-                        print("save error", error)
-                    }
-                } catch let error {
-                    print(error)
-                }
-                
-                
-                
-            case .failure(let error):
-                print(error)
+            batchRequest.predicate = NSPredicate(format: "name = %@", name)
+            
+            batchRequest.propertiesToUpdate = ["name": "\(index) FF"]
+            
+            batchRequest.resultType = .updatedObjectIDsResultType
+            
+            do {
+                try privateContext.execute(batchRequest)
+                try privateContext.save()
+            } catch let error as NSError {
+                print(error, error.userInfo)
             }
+        }
+        
+        do {
+            try privateContext.save()
+            
+            DispatchQueue.main.async {
+                
+                let context = CoreDataManager.shared.persistentContainer.viewContext
+                
+                print(context.hasChanges)
+                
+                do {
+                    try context.save()
+                    var snapshot = self.dataSource.snapshot()
+                    snapshot.deleteAllItems()
+                    self.configureSnapshot()
+                } catch let error {
+                    print(error.localizedDescription)
+                }
+            }
+            
+        } catch let error as NSError {
+            print(error.userInfo)
         }
     }
 }

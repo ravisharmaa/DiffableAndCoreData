@@ -69,7 +69,7 @@ struct CoreDataManager {
     
     // MARK:- Deletes and object from storage.
     
-    /// added  ```discardable``` to ignore the return value,  check if the deletion is successful or not.
+    /// added  ```discardable``` to ignore the return value
     
     @discardableResult
     
@@ -88,7 +88,7 @@ struct CoreDataManager {
         
     }
     
-    // MARK:- Deletes all records
+    // MARK:- Deletes all records.
     
     @discardableResult
     
@@ -112,5 +112,11 @@ struct CoreDataManager {
     func getRequestObject <T: NSManagedObject>(object: T.Type) -> NSFetchRequest<T> {
         
         return NSFetchRequest<T>(entityName: String(describing: object))
+    }
+    
+    // MARK:- Gets batch update request.
+    
+    func getBatchUpdateRequest<T: NSManagedObject>(object: T.Type) -> NSBatchUpdateRequest {
+        return NSBatchUpdateRequest(entityName: String(describing: object))
     }
 }
